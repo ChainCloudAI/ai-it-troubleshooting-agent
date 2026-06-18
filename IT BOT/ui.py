@@ -1,11 +1,12 @@
 import streamlit as st
 import ollama
 import os
+import psutil
 
 # ✅ PAGE CONFIG
 st.set_page_config(page_title="IT Mentor", layout="centered")
 
-# ✅ CUSTOM CSS (FULL DARK + PROFESSIONAL LOOK)
+# ✅ CUSTOM CSS
 st.markdown("""
 <style>
 
@@ -45,12 +46,10 @@ h1 {
     line-height: 1.5;
 }
 
-/* AI bubble */
 .ai-bubble {
     background-color: #1e293b;
 }
 
-/* USER bubble */
 .user-bubble {
     background-color: #334155;
 }
@@ -77,19 +76,30 @@ button:hover {
 </style>
 """, unsafe_allow_html=True)
 
-# ✅ START MAIN CARD
+# ✅ START CARD
 st.markdown('<div class="main-card">', unsafe_allow_html=True)
 
 # ✅ TITLE
 st.title("🧑‍🏫 IT Troubleshooting Mentor")
 
-# ✅ TOOL: CHECK INTERNET
+# ✅ TOOL: INTERNET CHECK
 def check_internet():
     result = os.system("ping -c 1 google.com > /dev/null 2>&1")
     if result == 0:
         return "✅ Internet is working"
     else:
         return "❌ No internet connection detected"
+
+# ✅ TOOL: PERFORMANCE
+def check_performance():
+    cpu = psutil.cpu_percent(interval=1)
+    memory = psutil.virtual_memory()
+    return f"🧠 CPU Usage: {cpu}% | RAM Usage: {memory.percent}%"
+
+# ✅ TOOL: DISK
+def check_disk():
+    disk = psutil.disk_usage('/')
+    return f"💾 Disk Usage: {disk.percent}% used"
 
 # ✅ LOAD KNOWLEDGE
 def load_knowledge():
@@ -113,7 +123,7 @@ for msg in st.session_state.messages:
     else:
         st.markdown(f'<div class="chat-bubble ai-bubble">{msg}</div>', unsafe_allow_html=True)
 
-# ✅ INPUT FORM (AUTO CLEAR)
+# ✅ INPUT
 with st.form(key="chat_form", clear_on_submit=True):
 
     user_input = st.text_input("You:")
@@ -129,6 +139,17 @@ with st.form(key="chat_form", clear_on_submit=True):
             status = check_internet()
             st.session_state.messages.append(status)
             internet_status = status
+
+        # ✅ PERFORMANCE TOOL
+        performance_info = ""
+        if "slow" in user_input.lower() or "lag" in user_input.lower():
+            perf = check_performance()
+            disk = check_disk()
+
+            st.session_state.messages.append(perf)
+            st.session_state.messages.append(disk)
+
+            performance_info = perf + " | " + disk
 
         # ✅ BUILD PROMPT
         history = "\n".join(st.session_state.messages)
@@ -154,8 +175,12 @@ RULES:
 Internet Status:
 {internet_status}
 
-If internet is working → focus on DEVICE issue  
-If not → focus on NETWORK issue  
+Performance Data:
+{performance_info}
+
+- If internet works → device issue  
+- If no internet → network issue  
+- If CPU/RAM/disk high → performance issue  
 
 Knowledge Base:
 {knowledge_base}
@@ -170,7 +195,6 @@ Conversation:
         )
 
         reply = response["message"]["content"]
-
         st.session_state.messages.append(f"🤖 {reply}")
 
         st.rerun()
