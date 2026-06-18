@@ -1,0 +1,70 @@
+NETWORK ISSUES:
+
+If device is connected but no internet:
+- Check IP address
+- Restart router
+- Run:
+    ipconfig /release
+    ipconfig /renew
+    ipconfig /flushdns
+
+If no WiFi networks show:
+- Check WiFi adapter
+- Restart device
+- Reinstall drivers
+
+If connected but “No Internet”:
+- Check gateway
+- Restart modem and router
+- Run:
+    ipconfig /all
+
+
+PRINTER ISSUES:
+
+If printer is connected but not printing:
+- Check print queue
+- Clear stuck jobs
+- Restart spooler:
+    net stop spooler
+    net start spooler
+
+If printer not detected:
+- Check cable or network
+- Reinstall drivers
+
+If printer shows offline:
+- Set printer to online mode
+- Restart printer and PC
+
+
+PERFORMANCE ISSUES:
+
+If computer is slow:
+- Open Task Manager
+- Check CPU and RAM usage
+- Close heavy apps
+- Disable startup programs
+
+If disk is slow:
+- Check disk usage
+- Run disk cleanup
+- Restart system
+
+If overheating:
+- Check fans
+- Close heavy apps
+- Clean vents
+
+
+SYSTEM GENERAL:
+
+If computer freezing:
+- Force restart
+- Check recent installs
+- Update OS
+
+If apps crashing:
+- Update app
+- Reinstall app
+- Check compatibility
