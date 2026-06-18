@@ -50,10 +50,79 @@ Built using a local LLM (Llama 3 via Ollama), the system combines structured rea
 - Streamlit
 - Ollama (Llama 3)
 - Retrieval-Augmented Generation (RAG)
-- psutil (for system diagnostics)
+- psutil (system diagnostics)
 
 ---
 
 ## How to Run
 
 ### 1. Install dependencies
+
+pip install streamlit psutil
+
+### 2. Install and run Ollama
+
+Download from:  
+https://ollama.com  
+
+Then run:
+
+ollama run llama3
+
+### 3. Run the application
+
+streamlit run ui.py
+
+### 4. Open in browser
+
+http://localhost:8501
+
+---
+
+## Project Structure
+
+ai-it-troubleshooting-agent
+├── app.py
+├── ui.py
+├── knowledge.txt
+└── .streamlit
+    └── config.toml
+
+---
+
+## Example
+
+User input:  
+I have no internet
+
+System behavior:  
+- Runs connectivity check  
+- Determines whether issue is device or network related  
+- Guides user step-by-step with targeted questions  
+- Provides actionable troubleshooting steps  
+
+---
+
+## Why This Project
+
+- Demonstrates structured AI agent design  
+- Implements controlled, step-by-step reasoning  
+- Uses real system diagnostics instead of assumptions  
+- Integrates a custom knowledge base for consistent outputs  
+- Runs locally without external API dependency  
+- Simulates real-world IT support workflows  
+
+---
+
+## Future Improvements
+
+- Expand diagnostic tools (network, processes, system services)  
+- Enhance retrieval system for more precise knowledge matching  
+- Improve UI with visual indicators and system status panels  
+- Deploy using a hosted model or containerized backend  
+
+---
+
+## Author
+
+Huy Truong
