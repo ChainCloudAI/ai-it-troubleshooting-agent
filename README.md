@@ -17,9 +17,10 @@ Built using a local LLM (Llama 3 via Ollama), this agent combines structured rea
   - Uses a custom `knowledge.txt`  
   - Provides structured, real-world solutions  
 
-- 🛠️ Tool-Based Diagnostics  
+- 🛠️ Tool-Based Diagnostics
   - Checks real internet connectivity (`ping`)  
-  - Uses results to guide decisions  
+  - Monitors system performance (CPU, RAM, disk usage)  
+  - Uses real system data to guide troubleshooting decisions   
 
 - 🔄 Iterative Problem Solving  
   - Continues troubleshooting until solved  
@@ -107,7 +108,7 @@ Assistant:
 - RAG integration  
 - Tool usage (real system checks)  
 - Full-stack AI app (backend + UI)  
-
+- Real-time system diagnostics (CPU, RAM, disk)
 ---
 
 ## 🚀 Future Improvements
